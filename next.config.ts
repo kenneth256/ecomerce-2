@@ -1,4 +1,3 @@
-// ...existing code...
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
@@ -25,8 +24,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-
- 
+  
   async rewrites() {
     return [
       {
@@ -36,14 +34,14 @@ const nextConfig: NextConfig = {
     ];
   },
   
-  // ✅ Move turbo config here (remove from experimental)
+  // Turbopack configuration (optional, can be removed if not needed)
   turbopack: {
     resolveAlias: {},
   },
   
-  // ✅ Set workspace root to silence lockfile warning
-  outputFileTracingRoot: '/Users/extremesales/project1',
+  // REMOVED: outputFileTracingRoot - this was causing the build error
+  // If you need this for monorepo, use relative path like:
+  // outputFileTracingRoot: path.join(__dirname, '../'),
 };
 
 export default nextConfig;
-// ...existing code...
