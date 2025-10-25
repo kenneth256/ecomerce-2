@@ -184,7 +184,7 @@ const FilterSection = memo<{
           <h4 className="text-sm font-semibold">Categories</h4>
           <div className="space-y-2">
             {uniqueCategories.map((category) => (
-              <div key={category.name} className="flex items-center gap-2">
+              <div key={category.id} className="flex items-center gap-2">
                 <Checkbox
                   className="border-2 border-gray-400 "
                   aria-label={category.name}
