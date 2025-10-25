@@ -254,7 +254,6 @@ const Header = () => {
 
                     <hr className="my-2" />
 
-                    {/* ✅ Fixed: Added onClick handler */}
                     <Button
                       variant="ghost"
                       className="w-full justify-start text-lg text-red-600 hover:bg-red-50"
