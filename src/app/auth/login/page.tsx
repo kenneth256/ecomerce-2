@@ -66,7 +66,7 @@ const Page = () => {
           alt="online shopping"
           fill
           src={"/images.jpg"}
-          className="object-cover object-center"
+          className="object-cover object-center mr-4"
           priority
         />
       </div>
@@ -76,9 +76,9 @@ const Page = () => {
             <Image
               alt="logo"
               src="/images.jpg"
-              width={50}
+              width={60}
               height={50}
-              className="rounded-lg"
+              className="mb-11"
               priority
             />
           </div>
