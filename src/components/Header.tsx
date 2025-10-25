@@ -70,7 +70,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     await logout();
-    window.location.href = "/auth/login";
+    window.location.href = "/";
   };
 
   const renderMenuItems = () => {
@@ -177,56 +177,66 @@ const Header = () => {
                 )}
               </div>
             </Link>
-
             {/* Desktop Account Menu */}
             <div className="hidden lg:block ml-2">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
+              {user ? (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="flex items-center w-fit"
+                    >
+                      <User className="w-5 h-5" />
+                      <p className="text-sm text-muted-foreground">
+                        {user?.name}
+                      </p>
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-48">
+                    <DropdownMenuItem asChild>
+                      <Link href="/account" className="cursor-pointer">
+                        <User className="w-4 h-4 mr-2" />
+                        My Account
+                      </Link>
+                    </DropdownMenuItem>
+                    {user?.role === "SUPER_ADMIN" && (
+                      <DropdownMenuItem asChild>
+                        <Link href="/dashboard" className="cursor-pointer">
+                          <SquareDashed className="w-4 h-4 mr-2" />
+                          Dashboard
+                        </Link>
+                      </DropdownMenuItem>
+                    )}
+                    <DropdownMenuItem asChild>
+                      <Link href="/settings" className="cursor-pointer">
+                        <Settings className="w-4 h-4 mr-2" />
+                        Settings
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem
+                      className="text-red-600 cursor-pointer"
+                      onClick={handleLogout}
+                    >
+                      <LogOut className="w-4 h-4 mr-2" />
+                      Logout
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              ) : (
+                <Link href="/auth/login">
                   <Button
                     variant="ghost"
                     size="icon"
                     className="flex items-center w-fit"
                   >
                     <User className="w-5 h-5" />
-                    <p className="text-sm text-muted-foreground">
-                      {" "}
-                      {user?.name}
-                    </p>
+                    <p className="text-sm font-semibold">Login</p>
                   </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-48">
-                  <DropdownMenuItem asChild>
-                    <Link href="/account" className="cursor-pointer">
-                      <User className="w-4 h-4 mr-2" />
-                      My Account
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    {user?.role === "SUPER_ADMIN" && (
-                      <Link href="/dashboard" className="cursor-pointer">
-                        <SquareDashed className="w-4 h-4 mr-2" />
-                        Dashboard
-                      </Link>
-                    )}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="/settings" className="cursor-pointer">
-                      <Settings className="w-4 h-4 mr-2" />
-                      Settings
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    className="text-red-600 cursor-pointer"
-                    onClick={handleLogout}
-                  >
-                    <LogOut className="w-4 h-4 mr-2" />
-                    Logout
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                </Link>
+              )}
             </div>
-
             {/* Mobile Menu */}
             <div className="lg:hidden px-2">
               <Sheet>
