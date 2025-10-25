@@ -209,7 +209,9 @@ const Page = () => {
             ([category, categoryProducts]) => (
               <div key={category} className="mb-12 last:mb-0">
                 <div className="flex justify-between bg-black text-center p-2 mb-2 rounded-t-sm">
-                  <h2 className="text-3xl font-bold text-white">{category}</h2>
+                  <h2 className="md:text-2xl font-bold text-white">
+                    {category}
+                  </h2>
                   <p className="flex text-sm font-bold italic text-muted-foreground text-center h-full">
                     see all
                   </p>
