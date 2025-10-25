@@ -62,13 +62,7 @@ const BannerCarousel = memo(() => {
     >
       {isLoading && (
         <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-          <p className="text-gray-600">Loading banners...</p>
-        </div>
-      )}
-
-      {!isLoading && banners.length === 0 && (
-        <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-          <p className="text-gray-600">No banners available</p>
+          <p className="border-b-4 rounded-full border-black/75 animate-spin"></p>
         </div>
       )}
 
