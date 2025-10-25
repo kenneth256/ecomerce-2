@@ -164,6 +164,7 @@ const FilterSection = memo<{
     onPriceChange,
   }) => {
     const sizes = ["S", "M", "L", "X", "XL", "XXX"];
+    const { categories } = useProductStore();
 
     const uniqueCategories = Array.from(
       new Set(products.map((product) => product.category))
@@ -177,7 +178,7 @@ const FilterSection = memo<{
         <div className="space-y-3">
           <h4 className="text-sm font-semibold">Categories</h4>
           <div className="space-y-2">
-            {uniqueCategories.map((category) => (
+            {categories.map((category) => (
               <div key={category.id} className="flex items-center gap-2">
                 <Checkbox
                   className="border-2 border-gray-400 "
