@@ -88,7 +88,6 @@ export default function Page() {
   const [recommendedProducts, setRecommendedProducts] = useState<Product[]>([]);
   const [quantity, setQuantity] = useState(0);
 
-  
   useEffect(() => {
     const fetchProduct = async () => {
       if (!id) return;
@@ -237,7 +236,7 @@ export default function Page() {
 
           {product.price && (
             <p className="text-2xl font-semibold text-green-600 mb-4">
-              ${product.price.toFixed(2)}
+              UGX {product.price.toFixed(2)}
             </p>
           )}
 
@@ -410,7 +409,7 @@ export default function Page() {
                   )}
                   <div className="flex items-center justify-between">
                     <span className="text-xl font-bold text-black/80 ">
-                      ${recProduct.price?.toFixed(2)}
+                      UGX {recProduct.price?.toFixed(2)}
                     </span>
                     {recProduct.stock !== undefined &&
                       recProduct.stock < 10 &&

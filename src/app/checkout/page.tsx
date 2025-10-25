@@ -393,10 +393,7 @@ const Checkout = () => {
                                 console.log("✅ Order created:", orderId);
                                 return orderId;
                               } catch (error) {
-                                console.error(
-                                  "❌ Order creation failed:",
-                                  error
-                                );
+                                toast.error("❌ Order creation failed:");
                                 throw error;
                               }
                             }}
@@ -408,9 +405,8 @@ const Checkout = () => {
 
                                 await handleCreateOrder(details);
                               } catch (error) {
-                                console.error(
-                                  "❌ Error processing successful payment:",
-                                  error
+                                toast.error(
+                                  "❌ Error processing successful payment:"
                                 );
                                 toast.error(
                                   "Payment successful but order creation failed. Please contact support."
