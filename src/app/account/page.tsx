@@ -200,7 +200,6 @@ const Page = () => {
                 {ordersLoading ? (
                   <div className="flex justify-center items-center py-16">
                     <div className="flex flex-col items-center gap-4">
-                      <div className="w-10 h-10 rounded-full border-4 border-slate-200 border-t-blue-600 animate-spin"></div>
                       <div className="border-t-2 border-black/75 rounded-full h-12 w-12"></div>
                     </div>
                   </div>
