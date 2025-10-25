@@ -29,7 +29,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: '/api/:path*',
-        destination: 'https://ugmartbacked-2.onrender.com/:path*',
+        destination: 'https://ugmartbacked-2.onrender.com/api/:path*',  // ✅ Added /api
       },
     ];
   },
@@ -38,10 +38,22 @@ const nextConfig: NextConfig = {
   turbopack: {
     resolveAlias: {},
   },
-  
-  // REMOVED: outputFileTracingRoot - this was causing the build error
-  // If you need this for monorepo, use relative path like:
-  // outputFileTracingRoot: path.join(__dirname, '../'),
 };
 
 export default nextConfig;
+// ```
+
+// ## The Difference:
+
+// **Before (WRONG):**
+// ```
+// Frontend calls: /api/products/products
+// Rewrites to: https://ugmartbacked-2.onrender.com/products/products  ❌
+// Backend expects: https://ugmartbacked-2.onrender.com/api/products/products
+// ```
+
+// **After (CORRECT):**
+// ```
+// Frontend calls: /api/products/products
+// Rewrites to: https://ugmartbacked-2.onrender.com/api/products/products  ✅
+// Backend receives: Correct path!

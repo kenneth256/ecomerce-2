@@ -71,7 +71,7 @@ const Page = () => {
     fetchCart();
   }, [user]);
 
-  console.log(cartItems.length);
+ 
 
   const handleQuantityChange = async (
     itemId: string,

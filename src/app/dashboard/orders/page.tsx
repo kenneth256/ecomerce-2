@@ -45,13 +45,17 @@ const OrderHistory = () => {
       "bg-gray-100 text-gray-700 border-gray-200"
     );
   };
-
+  const filterOrdersByStatus = (status: orderStatus) => {
+    return adminOrders.filter((order) => order.status === status);
+  };
   const handleUpdateStatus = async (id: string, status: orderStatus) => {
-    const toastId = toast.loading("Updating status...");
-
     const result = await updateOrder(id, status);
 
-    toast.dismiss(toastId);
+    if (result) {
+      toast.success("Order status updated");
+    } else {
+      toast.error("Failed to update order status");
+    }
   };
 
   return (
@@ -60,8 +64,7 @@ const OrderHistory = () => {
         {ordersLoading ? (
           <div className="flex justify-center items-center py-16">
             <div className="flex flex-col items-center gap-4">
-              <div className="w-10 h-10 rounded-full border-4 border-slate-200 border-t-blue-600 animate-spin"></div>
-              <div className="w-24 h-24 rounded-full border-b-2 border-black/70 animate-spin" />
+              <div className="w-24 h-24 rounded-full border-b-4 border-black/70 animate-spin" />
             </div>
           </div>
         ) : adminOrders.length === 0 ? (
@@ -108,73 +111,77 @@ const OrderHistory = () => {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {adminOrders.map((order) => (
-                  <TableRow
-                    key={order.id}
-                    className="hover:bg-slate-50 transition-colors"
-                  >
-                    <TableCell className="font-mono text-sm text-slate-700">
-                      {order.user.name}
-                    </TableCell>
-                    <TableCell className="font-mono font-bold text-sm text-slate-700">
-                      {order.address.phonenumber}
-                    </TableCell>
-                    <TableCell className="text-sm text-slate-600">
-                      <span className="font-medium text-slate-900">
-                        {order.items.length}
-                      </span>{" "}
-                      {order.items.length > 1 ? "items" : "item"}
-                    </TableCell>
-                    <TableCell className="text-sm text-slate-600">
-                      {new Date(order.createdAt).toLocaleDateString("en-GB", {
-                        day: "numeric",
-                        month: "numeric",
-                        year: "numeric",
-                      })}
-                    </TableCell>
-                    <TableCell className="text-sm font-semibold">
-                      {order.paymentStatus}
-                    </TableCell>
-                    <TableCell className="text-sm font-semibold font-sans">
-                      {order.address.district}, {order.address.subcounty},{" "}
-                      {order.address.village}
-                    </TableCell>
-                    <TableCell className="text-right text-sm font-bold text-slate-900">
-                      <span className="text-sm font-normal text-slate-600">
-                        UGX
-                      </span>{" "}
-                      {order.totalAmount.toLocaleString()}
-                    </TableCell>
-                    <TableCell>
-                      <span
-                        className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold rounded-sm border ${getStatusColor(order.status)}`}
-                      >
-                        {order.status === "DELIVERED" && (
-                          <Check className="w-3 h-3" />
-                        )}
-                        {order.status}
-                      </span>
-                    </TableCell>
-                    <TableCell className="text-right text-sm font-bold text-slate-900">
-                      <Select
-                        value={order.status}
-                        onValueChange={(value) =>
-                          handleUpdateStatus(order.id, value as orderStatus)
-                        }
-                      >
-                        <SelectTrigger className="w-[160px]">
-                          <SelectValue placeholder="Update status" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-gray-200 rounded-sm p-3">
-                          <SelectItem value="PENDING">Pending</SelectItem>
-                          <SelectItem value="PROCESSING">Processing</SelectItem>
-                          <SelectItem value="SHIPPED">Shipped</SelectItem>
-                          <SelectItem value="DELIVERED">Delivered</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </TableCell>
-                  </TableRow>
-                ))}
+                {adminOrders
+                  .filter((order) => order.status !== "DELIVERED")
+                  .map((order) => (
+                    <TableRow
+                      key={order.id}
+                      className="hover:bg-slate-50 transition-colors"
+                    >
+                      <TableCell className="font-mono text-sm text-slate-700">
+                        {order.user.name}
+                      </TableCell>
+                      <TableCell className="font-mono font-bold text-sm text-slate-700">
+                        {order.address.phonenumber}
+                      </TableCell>
+                      <TableCell className="text-sm text-slate-600">
+                        <span className="font-medium text-slate-900">
+                          {order.items.length}
+                        </span>{" "}
+                        {order.items.length > 1 ? "items" : "item"}
+                      </TableCell>
+                      <TableCell className="text-sm text-slate-600">
+                        {new Date(order.createdAt).toLocaleDateString("en-GB", {
+                          day: "numeric",
+                          month: "numeric",
+                          year: "numeric",
+                        })}
+                      </TableCell>
+                      <TableCell className="text-sm font-semibold">
+                        {order.paymentStatus}
+                      </TableCell>
+                      <TableCell className="text-sm font-semibold font-sans">
+                        {order.address.district}, {order.address.subcounty},{" "}
+                        {order.address.village}
+                      </TableCell>
+                      <TableCell className="text-right text-sm font-bold text-slate-900">
+                        <span className="text-sm font-normal text-slate-600">
+                          UGX
+                        </span>{" "}
+                        {order.totalAmount.toLocaleString()}
+                      </TableCell>
+                      <TableCell>
+                        <span
+                          className={`inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold rounded-sm border ${getStatusColor(order.status)}`}
+                        >
+                          {order.status === "DELIVERED" && (
+                            <Check className="w-3 h-3" />
+                          )}
+                          {order.status}
+                        </span>
+                      </TableCell>
+                      <TableCell className="text-right text-sm font-bold text-slate-900">
+                        <Select
+                          value={order.status}
+                          onValueChange={(value) =>
+                            handleUpdateStatus(order.id, value as orderStatus)
+                          }
+                        >
+                          <SelectTrigger className="w-[160px]">
+                            <SelectValue placeholder="Update status" />
+                          </SelectTrigger>
+                          <SelectContent className="bg-gray-200 rounded-sm p-3">
+                            <SelectItem value="PENDING">Pending</SelectItem>
+                            <SelectItem value="PROCESSING">
+                              Processing
+                            </SelectItem>
+                            <SelectItem value="SHIPPED">Shipped</SelectItem>
+                            <SelectItem value="DELIVERED">Delivered</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </TableCell>
+                    </TableRow>
+                  ))}
               </TableBody>
             </Table>
           </div>

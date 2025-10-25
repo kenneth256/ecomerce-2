@@ -7,6 +7,7 @@ import {
   Package,
   Settings,
   ArrowLeft,
+  SquareDashed,
 } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
@@ -30,7 +31,7 @@ import { useCartStore } from "@/store/usecartStore";
 import { useAuthStore } from "@/store/useAuthStore";
 
 const Header = () => {
-  const { logout } = useAuthStore();
+  const { logout, user } = useAuthStore();
   const nav = [
     {
       item: "Home",
@@ -38,7 +39,7 @@ const Header = () => {
     },
     {
       item: "Products",
-      href: "/listing",
+      href: "/products",
     },
   ];
 
@@ -55,12 +56,10 @@ const Header = () => {
 
   const { cartItems, fetchCart } = useCartStore();
 
-  // ✅ Fixed: Only fetch cart once on mount
   useEffect(() => {
     fetchCart();
   }, [fetchCart]);
 
-  // ✅ Calculate cart count whenever cartItems changes
   useEffect(() => {
     const totalQuantity = cartItems.reduce(
       (total, item) => total + item.quantity,
@@ -155,98 +154,109 @@ const Header = () => {
           </Link>
         </div>
 
-        <nav className="hidden lg:flex gap-6">
-          {nav.map((navItem, key) => (
-            <Link
-              key={key}
-              href={navItem.href}
-              className="hover:text-primary transition-colors font-medium"
-            >
-              {navItem.item}
+        <div className="flex items-center gap-4">
+          <nav className="hidden lg:flex gap-6">
+            {nav.map((navItem, key) => (
+              <Link
+                key={key}
+                href={navItem.href}
+                className="hover:text-primary transition-colors font-medium"
+              >
+                {navItem.item}
+              </Link>
+            ))}
+          </nav>
+          <div className="flex items-center gap-2">
+            <Link href="/cart">
+              <div className="relative cursor-pointer hover:opacity-70 transition-opacity p-2">
+                <ShoppingCart className="w-6 h-6" />
+                {cartCount > 0 && (
+                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                    {cartCount}
+                  </span>
+                )}
+              </div>
             </Link>
-          ))}
-        </nav>
 
-        <div className="flex items-center gap-2">
-          <Link href="/cart">
-            <div className="relative cursor-pointer hover:opacity-70 transition-opacity p-2">
-              <ShoppingCart className="w-6 h-6" />
-              {cartCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                  {cartCount}
-                </span>
-              )}
-            </div>
-          </Link>
-
-          {/* Desktop Account Menu */}
-          <div className="hidden lg:block">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <User className="w-5 h-5" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-48">
-                <DropdownMenuItem asChild>
-                  <Link href="/account" className="cursor-pointer">
-                    <User className="w-4 h-4 mr-2" />
-                    My Account
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/orders" className="cursor-pointer">
-                    <Package className="w-4 h-4 mr-2" />
-                    Orders
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link href="/settings" className="cursor-pointer">
-                    <Settings className="w-4 h-4 mr-2" />
-                    Settings
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  className="text-red-600 cursor-pointer"
-                  onClick={handleLogout}
-                >
-                  <LogOut className="w-4 h-4 mr-2" />
-                  Logout
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-          </div>
-
-          {/* Mobile Menu */}
-          <div className="lg:hidden px-2">
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Menu className="w-6 h-6" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent side="left" className="px-4">
-                <SheetHeader>
-                  <SheetTitle>UGMART</SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col gap-2 mt-6">
-                  {renderMenuItems()}
-
-                  <hr className="my-2" />
-
-                  {/* ✅ Fixed: Added onClick handler */}
+            {/* Desktop Account Menu */}
+            <div className="hidden lg:block ml-2">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
                   <Button
                     variant="ghost"
-                    className="w-full justify-start text-lg text-red-600 hover:bg-red-50"
+                    size="icon"
+                    className="flex items-center w-fit"
+                  >
+                    <User className="w-5 h-5" />
+                    <p className="text-sm text-muted-foreground">
+                      {" "}
+                      {user?.name}
+                    </p>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-48">
+                  <DropdownMenuItem asChild>
+                    <Link href="/account" className="cursor-pointer">
+                      <User className="w-4 h-4 mr-2" />
+                      My Account
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    {user?.role === "SUPER_ADMIN" && (
+                      <Link href="/dashboard" className="cursor-pointer">
+                        <SquareDashed className="w-4 h-4 mr-2" />
+                        Dashboard
+                      </Link>
+                    )}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link href="/settings" className="cursor-pointer">
+                      <Settings className="w-4 h-4 mr-2" />
+                      Settings
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem
+                    className="text-red-600 cursor-pointer"
                     onClick={handleLogout}
                   >
-                    <LogOut className="w-5 h-5 mr-2" />
+                    <LogOut className="w-4 h-4 mr-2" />
                     Logout
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+
+            {/* Mobile Menu */}
+            <div className="lg:hidden px-2">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon">
+                    <Menu className="w-6 h-6" />
                   </Button>
-                </div>
-              </SheetContent>
-            </Sheet>
+                </SheetTrigger>
+                <SheetContent side="left" className="px-4">
+                  <SheetHeader>
+                    <SheetTitle>UGMART</SheetTitle>
+                  </SheetHeader>
+                  <div className="flex flex-col gap-2 mt-6">
+                    {renderMenuItems()}
+
+                    <hr className="my-2" />
+
+                    {/* ✅ Fixed: Added onClick handler */}
+                    <Button
+                      variant="ghost"
+                      className="w-full justify-start text-lg text-red-600 hover:bg-red-50"
+                      onClick={handleLogout}
+                    >
+                      <LogOut className="w-5 h-5 mr-2" />
+                      Logout
+                    </Button>
+                  </div>
+                </SheetContent>
+              </Sheet>
+            </div>
           </div>
         </div>
       </div>

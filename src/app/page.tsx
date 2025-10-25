@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { useSettingStore } from "@/store/settingsStore";
 import { Product, useProductStore } from "@/store/useProductStore";
+import { Loader, Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, {
@@ -18,7 +19,6 @@ const Page = () => {
     banners,
     featuredProducts,
     isLoading,
-    error,
     fetchbanners,
     fetchFeaturedProducts,
   } = useSettingStore();
@@ -39,7 +39,7 @@ const Page = () => {
 
   const productsByCategory = useMemo(() => {
     return products.reduce((acc: Record<string, Product[]>, product) => {
-      const category = product.category?.name  || "Uncategorized";
+      const category = product.category?.name || "Uncategorized";
       if (!acc[category]) acc[category] = [];
       acc[category].push(product);
       return acc;
@@ -62,14 +62,6 @@ const Page = () => {
     setTimeout(() => setIsPaused(false), 10000);
   }, []);
 
-  if (error) {
-    return (
-      <div className="bg-white w-full min-h-screen flex items-center justify-center">
-        <p className="text-red-500">Error loading banners: {error}</p>
-      </div>
-    );
-  }
-
   return (
     <div className="bg-white w-full min-h-screen">
       <section
@@ -80,7 +72,7 @@ const Page = () => {
       >
         {isLoading && (
           <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-            <p className="text-gray-600">Loading banners...</p>
+            <Loader className="animate-spin" />
           </div>
         )}
 
