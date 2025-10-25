@@ -164,7 +164,11 @@ const FilterSection = memo<{
     onPriceChange,
   }) => {
     const sizes = ["S", "M", "L", "X", "XL", "XXX"];
-    const { categories } = useProductStore();
+    const { categories, fetchCategories } = useProductStore();
+
+    useEffect(() => {
+      fetchCategories();
+    }, [fetchCategories]);
 
     const uniqueCategories = Array.from(
       new Set(products.map((product) => product.category))
