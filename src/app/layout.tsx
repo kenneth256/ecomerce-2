@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Your App",
-  description: "Your app description",
+  title: "UG Mart - Your One-Stop Online Shop",
+  description: " Discover a wide range of products at unbeatable prices. Shop now and experience seamless online shopping with UG Mart!",
 };
 
 export default function RootLayout({
