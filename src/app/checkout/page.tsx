@@ -11,7 +11,6 @@ import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { useCartStore } from "@/store/usecartStore";
 import Image from "next/image";
-import { PayPalButtons, PayPalScriptProvider } from "@paypal/react-paypal-js";
 import { useCouponStore } from "@/store/couponStore";
 import { toast } from "sonner";
 import PayPalCheckout from "@/components/paypal";
@@ -37,13 +36,7 @@ const Checkout = () => {
 
   const { cartItems, clearCart } = useCartStore();
   const { fetchCoupons, coupons } = useCouponStore();
-  const {
-    isLoading,
-    createPaypalOrder,
-    capturePayPalOrder,
-    createOrder,
-    order,
-  } = useOrderStore();
+  const { isLoading, createPaypalOrder, createOrder, order } = useOrderStore();
   const { user } = useAuthStore();
 
   const sumtotal = cartItems.reduce(
@@ -151,8 +144,9 @@ const Checkout = () => {
     }
     return sumtotal;
   }, [sumtotal, discount]);
-
-  const usdAmount: number = parseFloat((total / 3600).toFixed(2));
+  const usdAmount = useMemo(() => {
+    return parseFloat((total / 3600).toFixed(2));
+  }, [total]);
 
   // Then you pass it to PayPal
 

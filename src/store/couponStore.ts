@@ -34,7 +34,6 @@ export const useCouponStore = create<CouponStore>((set, get) => ({
     try {
       const response = await axios.get(`${API_ROUTES.COUPONS}/availableCoupons`);
       set({ coupons: response.data.data, isLoading: false });
-      toast.success('Coupons fetched!')
     } catch (error: any) {
       console.error('Error fetching coupons:', error);
       set({ 

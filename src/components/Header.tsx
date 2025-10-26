@@ -160,7 +160,7 @@ const Header = () => {
               <Link
                 key={key}
                 href={navItem.href}
-                className="hover:text-primary transition-colors font-medium"
+                className={`${pathname === navItem.href ? "text-primary" : "text-muted-foreground"} hover:text-primary transition-colors font-medium`}
               >
                 {navItem.item}
               </Link>
