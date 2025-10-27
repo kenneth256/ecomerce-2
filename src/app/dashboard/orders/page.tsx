@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from "@radix-ui/react-select";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const OrderHistory = () => {
   const {
@@ -26,7 +27,7 @@ const OrderHistory = () => {
     adminOrders,
     updateOrder,
   } = useOrderStore();
-
+  const router = useRouter();
   useEffect(() => {
     getOrdersAdmin();
   }, []);
@@ -124,7 +125,12 @@ const OrderHistory = () => {
                       <TableCell className="font-mono font-bold text-sm text-slate-700">
                         {order.address.phonenumber}
                       </TableCell>
-                      <TableCell className="text-sm text-slate-600">
+                      <TableCell
+                        onClick={() =>
+                          router.push(`/dashboard/orders/${order.id}`)
+                        }
+                        className="text-sm text-slate-600 cursor-pointer hover:underline"
+                      >
                         <span className="font-medium text-slate-900">
                           {order.items.length}
                         </span>{" "}

@@ -321,23 +321,36 @@ export const useOrderStore = create<OrderStore>()((set, get) => ({
     }
   },
 
-  getOrderById: async(id) => {
-    set({ isLoading: true, error: null });
+ getOrderById: async(id) => {
+  console.log('🔍 Starting fetch for order ID:', id);
+  set({ isLoading: true, error: null });
+  
+  try {
+    const response = await axios.get(
+      `${API_ROUTES.ORDERS}/getorder/${id}`, 
+      { withCredentials: true }
+    );
     
-    try {
-      const response = await axios.get(
-        `${API_ROUTES.ORDERS}/getorder/${id}`, 
-        { withCredentials: true }
-      );
-      
-      set({ isLoading: false, order: response.data });
-      return response.data;
+    console.log('📦 Full response:', response);
+    console.log('📦 response.data:', response.data);
+    console.log('📦 response.data.data:', response.data.data);
+    
+    const orderData = response.data.data || response.data;
+    console.log('✅ Setting order to:', orderData);
+    
+    set({ 
+      isLoading: false, 
+      order: orderData
+    });
+    
+    return orderData;
 
-    } catch (error) {
-      const errorMessage = 'Failed to get order details';
-      set({ isLoading: false, error: errorMessage });
-      toast.error(errorMessage);
-      return null;
-    }
-  },
+  } catch (error) {
+    console.error('❌ Error fetching order:', error);
+    const errorMessage = 'Failed to get order details';
+    set({ isLoading: false, error: errorMessage });
+    toast.error(errorMessage);
+    return null;
+  }
+},
 }));
