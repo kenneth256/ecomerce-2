@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "UG Mart - Affordable Electronics & Online Shopping",
   description:
     "Shop a wide range of electronics, fashions and more at unbeatable prices. Experience seamless online shopping with UG Mart today!",
@@ -73,10 +73,6 @@ export default function RootLayout({
             });
           `}
         </Script>
-        <meta
-          name="google-site-verification"
-          content="NnCHKbX_mKbC2Pt0D10rEHLCeHrfcEZcQyw9vY_VtbU"
-        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
