@@ -65,7 +65,7 @@ const Page = () => {
   return (
     <div className="bg-white w-full min-h-screen">
       <section
-        className="h-[2500px] lg:h-[500px] overflow-hidden relative"
+        className="h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden relative"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         aria-label="Banner carousel"
@@ -76,55 +76,44 @@ const Page = () => {
           </div>
         )}
 
-        {!isLoading && banners.length === 0 && (
-          <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-            <p className="text-gray-600">No banners available</p>
-          </div>
-        )}
-
         {banners.map((banner, index) => (
           <div
             key={banner.id}
-            className={`absolute mb-4 inset-0 transition-opacity duration-1000 ${
+            className={`absolute inset-0 transition-opacity duration-1000 ${
               currentSlide === index ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
             aria-hidden={currentSlide !== index}
           >
-            <div className="inset-0 absolute">
-              <Image
-                alt={`Banner ${index + 1}`}
-                src={banner.imageUrl}
-                className="w-full h-full object-cover"
-                fill
-                priority={index === 0}
-                sizes="100vw"
-                quality={85}
-              />
-              <div
-                className="bg-black inset-0 absolute opacity-50"
-                aria-hidden="true"
-              />
+            <Image
+              alt={`Banner ${index + 1}`}
+              src={banner.imageUrl}
+              className="w-full h-full object-cover"
+              fill
+              priority={index === 0}
+              sizes="100vw"
+              quality={95}
+            />
+            <div className="bg-black/50 absolute inset-0" aria-hidden="true" />
 
-              <div className="relative h-full mx-auto container px-4 flex items-center">
-                <div className="space-y-6 text-white max-w-2xl">
-                  <span className="text-sm font-bold tracking-wider uppercase">
-                    Best Selling At
-                  </span>
-                  <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
-                    UG&apos;S BEST <br /> ONLINE MARKET
-                  </h1>
-                  <p className="text-base md:text-lg">
-                    Easy to use, efficient, environmentally friendly
-                    <br />
-                    High performance
-                  </p>
-                  <Button
-                    className="bg-white hover:bg-gray-100 text-black transition-colors duration-300 font-semibold"
-                    aria-label="Shop now"
-                  >
-                    SHOP NOW
-                  </Button>
-                </div>
+            <div className="relative h-full mx-auto container px-4 flex items-center">
+              <div className="space-y-6 text-white max-w-2xl">
+                <span className="text-sm font-bold tracking-wider uppercase">
+                  Best Selling At
+                </span>
+                <h1 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight">
+                  UG&apos;S BEST <br /> ONLINE MARKET
+                </h1>
+                <p className="text-base md:text-lg">
+                  Easy to use, efficient, environmentally friendly
+                  <br />
+                  High performance
+                </p>
+                <Button
+                  className="bg-white hover:bg-gray-100 text-black transition-colors duration-300 font-semibold"
+                  aria-label="Shop now"
+                >
+                  SHOP NOW
+                </Button>
               </div>
             </div>
           </div>
