@@ -19,6 +19,13 @@ export const metadata = {
   title: "UG Mart - Affordable Electronics & Online Shopping",
   description:
     "Shop a wide range of electronics, fashions and more at unbeatable prices. Experience seamless online shopping with UG Mart today!",
+  metadataBase: new URL("https://ecomerce-2-p66h.vercel.app"),
+  alternates: {
+    canonical: "/",
+  },
+  verification: {
+    google: "NnCHKbX_mKbC2Pt0D10rEHLCeHrfcEZcQyw9vY_VtbU",
+  },
 };
 
 export default function RootLayout({
