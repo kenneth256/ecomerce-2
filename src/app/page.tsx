@@ -14,6 +14,14 @@ import React, {
   useMemo,
 } from "react";
 
+export const metadata = {
+  title: "Products - UG Mart",
+  description: "Browse our wide selection of products",
+  alternates: {
+    canonical: "/products",
+  },
+};
+
 const Page = () => {
   const {
     banners,
