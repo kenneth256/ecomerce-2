@@ -23,8 +23,8 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  verification: {
-    google: "NnCHKbX_mKbC2Pt0D10rEHLCeHrfcEZcQyw9vY_VtbU",
+  other: {
+    "google-site-verification": "NnCHKbX_mKbC2Pt0D10rEHLCeHrfcEZcQyw9vY_VtbU",
   },
 };
 
@@ -58,16 +58,15 @@ export default function RootLayout({
         <Script
           id="json-ld"
           type="application/ld+json"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
 
         {/* Google Analytics */}
         <Script
-          strategy="beforeInteractive"
+          strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-8S99M189QN"
         />
-        <Script id="google-analytics" strategy="beforeInteractive">
+        <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
