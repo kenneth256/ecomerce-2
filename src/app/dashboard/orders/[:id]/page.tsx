@@ -8,11 +8,13 @@ const OrderDetailsPage = () => {
 
   const id: string = params.id as string;
 
-  const { getOrderById, order, isLoading, error } = useOrderStore();
+  const { order, isLoading, error, getOrdersByUser } = useOrderStore();
 
   useEffect(() => {
-    getOrderById(id);
+    getOrdersByUser();
   }, [id]);
+
+  console.log("Order from store:", order);
 
   if (isLoading) return <p className="p-6">Loading...</p>;
   if (error) return <p className="p-6 text-red-500">{error}</p>;

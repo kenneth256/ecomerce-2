@@ -280,7 +280,7 @@ export const useOrderStore = create<OrderStore>()((set, get) => ({
     return ordersArray;
 
   } catch (error) {
-    // More detailed error handling
+    
     const errorMessage = 
       axios.isAxiosError(error) 
         ? error.response?.data?.message || 'Failed to get orders'
@@ -295,7 +295,7 @@ export const useOrderStore = create<OrderStore>()((set, get) => ({
     });
     
     toast.error(errorMessage);
-    return []; // Return empty array instead of null for consistency
+    return []; 
   }
 },
 
@@ -322,7 +322,7 @@ export const useOrderStore = create<OrderStore>()((set, get) => ({
   },
 
  getOrderById: async(id) => {
-  console.log('🔍 Starting fetch for order ID:', id);
+ 
   set({ isLoading: true, error: null });
   
   try {
@@ -331,12 +331,9 @@ export const useOrderStore = create<OrderStore>()((set, get) => ({
       { withCredentials: true }
     );
     
-    console.log('📦 Full response:', response);
-    console.log('📦 response.data:', response.data);
-    console.log('📦 response.data.data:', response.data.data);
     
     const orderData = response.data.data || response.data;
-    console.log('✅ Setting order to:', orderData);
+    
     
     set({ 
       isLoading: false, 
