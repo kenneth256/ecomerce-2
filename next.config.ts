@@ -57,3 +57,7 @@ export default nextConfig;
 // Frontend calls: /api/products/products
 // Rewrites to: https://ugmartbacked-2.onrender.com/api/products/products  ✅
 // Backend receives: Correct path!
+
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+});
