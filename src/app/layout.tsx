@@ -15,10 +15,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "UG Mart - Your One-Stop Online Shop",
+export const metadata = {
+  title: "UG Mart - Affordable Electronics & Online Shopping",
   description:
-    "Discover a wide range of products at unbeatable prices. Shop now and experience seamless online shopping with UG Mart!",
+    "Shop a wide range of electronics, fashions and more at unbeatable prices. Experience seamless online shopping with UG Mart today!",
 };
 
 export default function RootLayout({
