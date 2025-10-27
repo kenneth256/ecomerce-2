@@ -65,7 +65,7 @@ const Page = () => {
   return (
     <div className="bg-white w-full min-h-screen">
       <section
-        className="h-[500px] overflow-hidden relative"
+        className="h-[2500px] lg:h-[500px] overflow-hidden relative"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         aria-label="Banner carousel"
