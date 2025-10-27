@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import { Toaster } from "sonner";
-import Script from "next/script"; // ✅ Import Script
+import Script from "next/script";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,9 +26,32 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "UG Mart",
+    url: "https://ecomerce-2-p66h.vercel.app",
+    description:
+      "Shop a wide range of electronics, fashions and more at unbeatable prices.",
+    potentialAction: {
+      "@type": "SearchAction",
+      target:
+        "https://ecomerce-2-p66h.vercel.app/products?search={search_term_string}",
+      "query-input": "required name=search_term_string",
+    },
+  };
+
   return (
     <html lang="en">
       <head>
+        {/* JSON-LD Schema */}
+        <Script
+          id="json-ld"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+
+        {/* Google Analytics */}
         <Script
           strategy="afterInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-8S99M189QN"

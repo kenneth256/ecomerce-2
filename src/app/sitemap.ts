@@ -6,7 +6,7 @@ export const runtime = "edge"; // optional, faster at edge
 export default async function sitemap() {
   const baseUrl = "https://ecomerce-2-p66h.vercel.app"; // your frontend domain
 
-  // Static pages
+  
   const staticPages = ["/", "/about", "/products", "/auth"];
 
   let sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>\n`;

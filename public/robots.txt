@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ecomerce-2-p66h.vercel.app/sitemap.xml
