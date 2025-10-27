@@ -20,6 +20,10 @@ export const metadata = {
   alternates: {
     canonical: "/products",
   },
+
+  other: {
+    'google-site-verification': 'NnCHKbX_mKbC2Pt0D10rEHLCeHrfcEZcQyw9vY_VtbU'
+  }
 };
 
 const Page = () => {
