@@ -2,7 +2,8 @@ import React from "react";
 import Page from "./Home";
 export const metadata = {
   title: "Products - UG Mart",
-  description: "Browse our wide selection of products",
+  description:
+    "UG Mart offers quality electronics, fashion, home goods and more. Free delivery in Kampala. Shop trusted brands at competitive prices.",
   alternates: {
     canonical: "/products",
   },
