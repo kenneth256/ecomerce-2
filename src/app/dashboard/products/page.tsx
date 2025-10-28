@@ -92,7 +92,7 @@ const ProductsPage = () => {
                 </TableCell>
                 <TableCell>
                   <div className="flex flex-col">
-                    <p>{product.name}</p>
+                    <h1>{product.name}</h1>
                     <p className="text-sm text-muted-foreground">
                       sizes: {formatSizes(product.sizes)}
                     </p>
