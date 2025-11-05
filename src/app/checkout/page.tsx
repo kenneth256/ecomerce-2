@@ -145,7 +145,7 @@ const Checkout = () => {
     return sumtotal;
   }, [sumtotal, discount]);
   const usdAmount = useMemo(() => {
-    return parseFloat((total / 3600).toFixed(2));
+    return parseFloat((sumtotal / 3600).toFixed(2));
   }, [total]);
 
   // Then you pass it to PayPal
@@ -493,7 +493,7 @@ const Checkout = () => {
                   <span>Total</span>
                   <div className="text-right">
                     <div className="text-blue-600">
-                      UGX {sumtotal.toLocaleString()}
+                      UGX {total.toLocaleString()}
                     </div>
                     <div className="text-sm text-muted-foreground font-normal">
                       ≈ ${usdAmount} USD
