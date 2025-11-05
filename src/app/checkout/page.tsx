@@ -145,7 +145,7 @@ const Checkout = () => {
     return sumtotal;
   }, [sumtotal, discount]);
   const usdAmount = useMemo(() => {
-    return parseFloat((sumtotal / 3600).toFixed(2));
+    return parseFloat((total / 3600).toFixed(2));
   }, [total]);
 
   // Then you pass it to PayPal
