@@ -493,7 +493,7 @@ const Checkout = () => {
                   <span>Total</span>
                   <div className="text-right">
                     <div className="text-blue-600">
-                      UGX {total.toLocaleString()}
+                      UGX {sumtotal.toLocaleString()}
                     </div>
                     <div className="text-sm text-muted-foreground font-normal">
                       ≈ ${usdAmount} USD
