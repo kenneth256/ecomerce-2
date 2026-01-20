@@ -3,7 +3,7 @@
 import axios from 'axios';
 
 
-const BaseURL = '';
+const BaseURL = process.env.NEXT_PUBLIC_API_URL || '';
 
 
 export const axio = axios.create({
